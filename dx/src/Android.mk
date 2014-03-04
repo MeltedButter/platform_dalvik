@@ -21,6 +21,30 @@ INTERNAL_DALVIK_MODULES += $(LOCAL_INSTALLED_MODULE)
 
 endif # TARGET_BUILD_APPS
 
+# dx java library for target
+# ============================================================
+include $(CLEAR_VARS)
+
+LOCAL_SRC_FILES := $(call all-subdir-java-files)
+LOCAL_SRC_FILES += $(call all-java-files-under,../../../libcore/dex/src/main/java)
+LOCAL_JAR_MANIFEST := ../etc/manifest.txt
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE := dx-target
+
+include $(BUILD_JAVA_LIBRARY)
+
+# permissions .xml
+# ============================================================
+include $(CLEAR_VARS)
+
+LOCAL_MODULE := dx-target.xml
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH := $(TARGET_OUT_ETC)/permissions
+LOCAL_SRC_FILES := $(LOCAL_MODULE)
+
+include $(BUILD_PREBUILT)
+
 # the documentation
 # ============================================================
 include $(CLEAR_VARS)
